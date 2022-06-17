@@ -12,13 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class Lecture06Controller {
 
   @GetMapping("/hello")
-  public String hello(
-      @RequestParam(defaultValue = "0") String requestParam,
-      Model model) {
-    
-    String responseMessage;
-    Integer massageIndex;
-    int responseSetParamNumber;
+  public String hello(@RequestParam(defaultValue = "0") String requestParam, Model model) {
     Map<Integer, String> messageMap = new HashMap<>();
     messageMap.put(0, "ハロー！そして");
     messageMap.put(1, "グッドバイ！！");
@@ -30,19 +24,20 @@ public class Lecture06Controller {
     messageMap.put(7, "こんどこそさようなら");
     messageMap.put(8, "おしまい");
 
+    int nextMapParamNumber;
+    String responseMessage;
     if (requestParam.matches("[0-8]")) {
-      massageIndex = Integer.valueOf(requestParam);
-      responseSetParamNumber = massageIndex.intValue();
-      responseMessage = messageMap.get(responseSetParamNumber);
+      nextMapParamNumber = Integer.valueOf(requestParam);
+      responseMessage = messageMap.get(nextMapParamNumber);
     } else {
-      responseSetParamNumber = 0;
-      responseMessage = messageMap.get(responseSetParamNumber);
+      nextMapParamNumber = 0;
+      responseMessage = messageMap.get(nextMapParamNumber);
     }
 
-    responseSetParamNumber += 1;
-    if (responseSetParamNumber == 9) responseSetParamNumber = 0;
+    nextMapParamNumber += 1;
+    if (nextMapParamNumber == 9) nextMapParamNumber = 0;
     model.addAttribute("responseMessage", responseMessage);
-    model.addAttribute("responseSetParamNumber", responseSetParamNumber);
+    model.addAttribute("responseSetParamNumber", nextMapParamNumber);
     return "hello";
   }
 }
