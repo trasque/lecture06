@@ -33,7 +33,7 @@ public class Lecture06Controller {
 
   @GetMapping("/bye3")
   public String bye3() {
-    return "グッドバイ……？　<a href=\"hello4\">したいのかい？</a>";
+    return "グッドバイ……？ <a href=\"hello4\">したいのかい？</a>";
   }
 
   @GetMapping("/hello4")

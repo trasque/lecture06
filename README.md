@@ -17,7 +17,7 @@ SpringWebでLocalhost:8080に `Hello, world!` を表示する。
 
 1. レポジトリをクローン
 2. `./gradle build` でビルド
-3. `./gradle bootrun` でAPサーバーを起動
+3. `./gradle bootRun` でAPサーバーを起動
 4. ブラウザで `localhost:8080/hello` にアクセスする
 
 ![実行時コンソール画面](0001.png)
