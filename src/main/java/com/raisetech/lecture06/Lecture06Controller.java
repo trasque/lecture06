@@ -1,53 +1,48 @@
 package com.raisetech.lecture06;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.HashMap;
+import java.util.Map;
 
-@RestController
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
 public class Lecture06Controller {
 
   @GetMapping("/hello")
-  public String hello() {
-    return "<a href=\"/bye\">ハロー！そして</a>";
-  }
-  
-  @GetMapping("/bye")
-  public String bye() {
-    return "<a href=\"/hello2\">グッドバイ！！</a>";
-  }
+  public String hello(
+      @RequestParam(defaultValue = "0") String requestParam,
+      Model model) {
+    
+    String responseMessage;
+    Integer massageIndex;
+    int responseSetParamNumber;
+    Map<Integer, String> messageMap = new HashMap<>();
+    messageMap.put(0, "ハロー！そして");
+    messageMap.put(1, "グッドバイ！！");
+    messageMap.put(2, "ハロー！そして");
+    messageMap.put(3, "グッドバイ？");
+    messageMap.put(4, "ハロー？？");
+    messageMap.put(5, "グッドバイ……？したいのかい？");
+    messageMap.put(6, "ハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハロー");
+    messageMap.put(7, "こんどこそさようなら");
+    messageMap.put(8, "おしまい");
 
-  @GetMapping("/hello2")
-  public String hello2() {
-    return "<a href=\"/bye2\">ハロー！そして</a>";
-  }
+    if (requestParam.matches("[0-8]")) {
+      massageIndex = Integer.valueOf(requestParam);
+      responseSetParamNumber = massageIndex.intValue();
+      responseMessage = messageMap.get(responseSetParamNumber);
+    } else {
+      responseSetParamNumber = 0;
+      responseMessage = messageMap.get(responseSetParamNumber);
+    }
 
-  @GetMapping("/bye2")
-  public String bye2() {
-    return "<a href=\"/hello3\">グッドバイ？</a>";
-  }
-
-  @GetMapping("/hello3")
-  public String hello3() {
-    return "<a href=\"bye3\">ハロー？？</a>";
-  }
-
-  @GetMapping("/bye3")
-  public String bye3() {
-    return "グッドバイ……？ <a href=\"hello4\">したいのかい？</a>";
-  }
-
-  @GetMapping("/hello4")
-  public String hello4() {
-    return "<a href=\"bye4\">ハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハローハロー</a>";
-  }
-
-  @GetMapping("/bye4")
-  public String bye4() {
-    return "<a href=\"byebye\">こんどこそさようなら</a>";
-  }
-
-  @GetMapping("/byebye")
-  public String byebye() {
-    return "おしまい";
+    responseSetParamNumber += 1;
+    if (responseSetParamNumber == 9) responseSetParamNumber = 0;
+    model.addAttribute("responseMessage", responseMessage);
+    model.addAttribute("responseSetParamNumber", responseSetParamNumber);
+    return "hello";
   }
 }
